@@ -59,7 +59,7 @@ jobs:
 
 
   # ==========================================
-  # MAIN BRANCH - TERRAFORM APPLY
+  # MAIN BRANCH - TERRAFORM APPLY AFTER PR
   # ==========================================
   terraform-apply:
     name: Terraform Apply
