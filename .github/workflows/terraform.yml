@@ -1,0 +1,98 @@
+name: Terraform CI/CD
+
+on:
+  push:
+    branches:
+      - "feature/**"
+
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+permissions:
+  contents: read
+
+jobs:
+
+  # ==========================================
+  # FEATURE BRANCH - TERRAFORM PLAN
+  # ==========================================
+  terraform-plan:
+    name: Terraform Plan
+    environment: local_environment
+
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/')
+    runs-on: ubuntu-latest
+
+    env:
+      ARM_CLIENT_ID: "a39182e7-1a5e-4571-8737-64ea80275f47"
+      ARM_CLIENT_SECRET: "9dA8Q~MPpjbWhQyd.tEpjVLWufs.wmx~Trd-Va.3"
+      ARM_SUBSCRIPTION_ID: "a17fbdc3-684e-4eac-a34d-885752f5122a"
+      ARM_TENANT_ID: "90fbc40a-6c39-410d-b4dc-848de2dc0357"
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: '{"clientId":"a39182e7-1a5e-4571-8737-64ea80275f47","clientSecret":"9dA8Q~MPpjbWhQyd.tEpjVLWufs.wmx~Trd-Va.3","subscriptionId":"a17fbdc3-684e-4eac-a34d-885752f5122a","tenantId":"90fbc40a-6c39-410d-b4dc-848de2dc0357"}'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./environment/dev
+
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: ./environment/dev
+
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: ./environment/dev
+
+
+  # ==========================================
+  # MAIN BRANCH - TERRAFORM APPLY AFTER PR
+  # ==========================================
+  terraform-apply:
+    name: Terraform Apply
+    environment: local_environment
+
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    env:
+      ARM_CLIENT_ID: "a39182e7-1a5e-4571-8737-64ea80275f47"
+      ARM_CLIENT_SECRET: "9dA8Q~MPpjbWhQyd.tEpjVLWufs.wmx~Trd-Va.3"
+      ARM_SUBSCRIPTION_ID: "a17fbdc3-684e-4eac-a34d-885752f5122a"
+      ARM_TENANT_ID: "90fbc40a-6c39-410d-b4dc-848de2dc0357"
+
+    steps:
+
+      - name: Checkout Main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: '{"clientId":"a39182e7-1a5e-4571-8737-64ea80275f47","clientSecret":"9dA8Q~MPpjbWhQyd.tEpjVLWufs.wmx~Trd-Va.3","subscriptionId":"a17fbdc3-684e-4eac-a34d-885752f5122a","tenantId":"90fbc40a-6c39-410d-b4dc-848de2dc0357"}'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./environment/dev
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: ./environment/dev
