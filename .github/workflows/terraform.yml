@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_CLIENT_ID: "a39182e7-1a5e-4571-8737-64ea80275f47"
+      ARM_CLIENT_SECRET: "9dA8Q~MPpjbWhQyd.tEpjVLWufs.wmx~Trd-Va.3"
+      ARM_SUBSCRIPTION_ID: "a17fbdc3-684e-4eac-a34d-885752f5122a"
+      ARM_TENANT_ID: "90fbc40a-6c39-410d-b4dc-848de2dc0357"
 
     steps:
 
@@ -40,7 +40,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+          creds: '{"clientId":"a39182e7-1a5e-4571-8737-64ea80275f47","clientSecret":"9dA8Q~MPpjbWhQyd.tEpjVLWufs.wmx~Trd-Va.3","subscriptionId":"a17fbdc3-684e-4eac-a34d-885752f5122a","tenantId":"90fbc40a-6c39-410d-b4dc-848de2dc0357"}'
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -69,10 +69,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_CLIENT_ID: "a39182e7-1a5e-4571-8737-64ea80275f47"
+      ARM_CLIENT_SECRET: "9dA8Q~MPpjbWhQyd.tEpjVLWufs.wmx~Trd-Va.3"
+      ARM_SUBSCRIPTION_ID: "a17fbdc3-684e-4eac-a34d-885752f5122a"
+      ARM_TENANT_ID: "90fbc40a-6c39-410d-b4dc-848de2dc0357"
 
     steps:
 
@@ -84,7 +84,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+          creds: '{"clientId":"a39182e7-1a5e-4571-8737-64ea80275f47","clientSecret":"9dA8Q~MPpjbWhQyd.tEpjVLWufs.wmx~Trd-Va.3","subscriptionId":"a17fbdc3-684e-4eac-a34d-885752f5122a","tenantId":"90fbc40a-6c39-410d-b4dc-848de2dc0357"}'
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
