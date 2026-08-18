@@ -21,6 +21,8 @@ jobs:
   # ==========================================
   terraform-plan:
     name: Terraform Plan
+    environment: local_environment
+
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/')
     runs-on: ubuntu-latest
 
@@ -65,6 +67,8 @@ jobs:
   # ==========================================
   terraform-apply:
     name: Terraform Apply
+    environment: local_environment
+
     if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
